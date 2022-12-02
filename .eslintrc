@@ -12,13 +12,13 @@
     },
     "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "sourceType": "module",
-        "ecmaVersion": 8,
         "ecmaFeatures": {
             "jsx": true
         },
-        "requireConfigFile": false
+        "ecmaVersion": 11,
+        "sourceType": "module"
     },
+    "requireConfigFile": false,
     "rules": {
         "arrow-body-style": [
             0

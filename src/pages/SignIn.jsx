@@ -1,8 +1,6 @@
 import React from 'react'
 import firebase from 'firebase/app';
-import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
-import GooglePlusCircleIcon from '@rsuite/icons/legacy/GooglePlusCircle';
-import { Button, Col, Container, Grid, Panel, Row } from 'rsuite';
+import { Button, Col, Container, Grid, Panel, Row, Alert, Icon } from 'rsuite';
 import { auth, database } from '../misc/firebase';
 
 const SignIn = () => {
@@ -19,8 +17,10 @@ const SignIn = () => {
                     createdAt: firebase.database.ServerValue.TIMESTAMP,
                 })
             }
+
+            Alert.success('Signed in', 4000);
         } catch (err) {
-            console.error(err)
+            Alert.error(err.message, 4000);
         }
     }
 
@@ -44,11 +44,11 @@ const SignIn = () => {
                                 <p>Progressive chat platform for neophytes</p>
                             </div>
                             <div className='mt-3'>
-                                <Button block appearance='primary' color='blue' onClick={onFacebookSignIn}>
-                                    <FacebookOfficialIcon /> Login with Facebook
+                                <Button block color='blue' onClick={onFacebookSignIn}>
+                                    <Icon icon='facebook' /> Login with Facebook
                                 </Button>
-                                <Button block appearance='primary' color='green' onClick={onGoogleSignIn}>
-                                    <GooglePlusCircleIcon /> Login with Google
+                                <Button block color='green' onClick={onGoogleSignIn}>
+                                    <Icon icon='google' /> Login with Google
                                 </Button>
                             </div>
                         </Panel>

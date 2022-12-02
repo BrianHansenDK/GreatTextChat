@@ -9,7 +9,8 @@ const config = {
     storageBucket: "greatextapp.appspot.com",
     messagingSenderId: "539011448514",
     appId: "1:539011448514:web:509d0f8b3b908c7addc55b",
-    measurementId: "G-CJV9WS2QYL"
+    measurementId: "G-CJV9WS2QYL",
+    databaseURL: "https://greatextapp-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 export const app = firebase.initializeApp(config);

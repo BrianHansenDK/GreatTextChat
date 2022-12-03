@@ -18,9 +18,14 @@
         "ecmaVersion": 11,
         "sourceType": "module"
     },
-    "requireConfigFile": false,
     "rules": {
         "arrow-body-style": [
+            0
+        ],
+        "no-console": [
+            0
+        ],
+        "react/jsx-no-constructed-context-values": [
             0
         ],
         "react/function-component-definition": [

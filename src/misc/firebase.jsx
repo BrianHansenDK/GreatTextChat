@@ -10,6 +10,9 @@ const config = {
     messagingSenderId: "539011448514",
     appId: "1:539011448514:web:509d0f8b3b908c7addc55b",
     measurementId: "G-CJV9WS2QYL",
+    cookie: true,
+    xfbml: true,
+    version: 'OAuth2',
     databaseURL: "https://greatextapp-default-rtdb.europe-west1.firebasedatabase.app"
 };
 

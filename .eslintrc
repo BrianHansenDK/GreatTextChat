@@ -28,6 +28,9 @@
         "react/jsx-no-constructed-context-values": [
             0
         ],
+        "import/no-duplicates": [
+            0
+        ],
         "react/function-component-definition": [
             2,
             {

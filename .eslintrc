@@ -15,7 +15,9 @@
         "sourceType": "module",
         "ecmaVersion": 8,
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "typescript": true,
+            "flow": true
         },
         "requireConfigFile": false
     },

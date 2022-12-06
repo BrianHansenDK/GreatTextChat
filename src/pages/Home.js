@@ -1,16 +1,20 @@
 import React from 'react'
 import { Col, Grid, Row } from 'rsuite'
 import Sidebar from '../components/Sidebar'
+import { RoomsProvider } from '../context/rooms.context'
 
 const Home = () => {
     return (
-        <Grid className='h-100'>
-            <Row className='h-100'>
-                <Col xs={24} md={8} className='h-100'>
-                    <Sidebar />
-                </Col>
-            </Row>
-        </Grid>
+        <RoomsProvider>
+
+            <Grid className='h-100 w-100'>
+                <Row className='h-100'>
+                    <Col xs={24} md={8} className='h-100'>
+                        <Sidebar />
+                    </Col>
+                </Row>
+            </Grid>
+        </RoomsProvider>
     )
 }
 

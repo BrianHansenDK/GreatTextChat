@@ -3,7 +3,8 @@ import { Alert, Button, Modal } from 'rsuite'
 import AvatarEditor from 'react-avatar-editor'
 import { useModalState } from '../../misc/CustomHooks'
 import { useProfile } from '../../context/profile.context'
-import { storage } from '../../misc/firebase'
+import { database, storage } from '../../misc/firebase'
+import ProfileAvatar from '../ProfileAvatar'
 
 const fileInputTypes = '.png, .jpg, .jpeg'
 const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/pjpeg']
@@ -23,7 +24,7 @@ const getBlob = (canvas) => {
 
 const AvatarUploadBtn = () => {
     const { isOpen, open, close } = useModalState()
-    const [avatar, setAvatar] = useState(null)
+    const [img, setImg] = useState(null)
     const [isLoading, setIsLoadning] = useState(false)
     const avatarEditorRef = useRef()
 
@@ -34,7 +35,7 @@ const AvatarUploadBtn = () => {
             const file = currFiles[0]
 
             if (isValidFile(file)) {
-                setAvatar(file)
+                setImg(file)
                 open()
             } else {
                 Alert.warning(`Wrong file type ${file.type}`, 4000)
@@ -58,9 +59,9 @@ const AvatarUploadBtn = () => {
                 cacheControl: `public, max-age=${3600 * 24 * 3}`
             })
             const downloadUrl = await uploadAvatarResult.ref.getDownloadURL()
-            const userAvatarRef = storage.ref(`/profile/${profile.uid}`).child('avatar')
+            const userAvatarRef = database.ref(`/profiles/${profile.uid}`).child('avatar')
 
-            userAvatarRef.put(downloadUrl)
+            userAvatarRef.set(downloadUrl)
 
             setIsLoadning(false)
             Alert.info('Succesfully set user avatar', 4000)
@@ -71,6 +72,7 @@ const AvatarUploadBtn = () => {
     }
     return (
         <div className='mt-3 text-center'>
+            <ProfileAvatar src={profile.avatar} name={profile.name} className='width-200 height-200 img-fullsize font-huge' />
             <div>
                 <label htmlFor='avatar-upload' className='d-block cursor-pointer padded'>
                     Select new Avatar
@@ -87,10 +89,10 @@ const AvatarUploadBtn = () => {
                         <div className='d-flex justify-content-center align-items-center h-100'>
 
                             {
-                                avatar ? (
+                                img ? (
                                     <AvatarEditor
                                         ref={avatarEditorRef}
-                                        image={avatar}
+                                        image={img}
                                         width={200}
                                         height={200}
                                         border={10}

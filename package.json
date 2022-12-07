@@ -20,7 +20,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
     "rsuite": "^4.11.1",
+    "scheduler": "^0.23.0",
     "timeago-react": "^3.0.5",
+    "use-context-selector": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

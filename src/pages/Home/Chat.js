@@ -5,6 +5,7 @@ import ChatTop from '../../components/chat-window/top/Index'
 import Messages from '../../components/chat-window/messages/Index'
 import ChatBottom from '../../components/chat-window/bottom/Index'
 import { useRooms } from '../../context/rooms.context'
+import { CurrentRoomProvider } from '../../context/current-room.context'
 
 const Chat = () => {
 
@@ -27,8 +28,15 @@ const Chat = () => {
         )
     }
 
+    const { name, description } = currentRoom
+
+    const currentRoomData = {
+        name,
+        description,
+    }
+
     return (
-        <>
+        <CurrentRoomProvider data={currentRoomData}>
             <div className='chat-top'>
                 <ChatTop />
             </div>
@@ -38,7 +46,7 @@ const Chat = () => {
             <div className='chat-bottom' >
                 <ChatBottom />
             </div>
-        </>
+        </CurrentRoomProvider>
     )
 }
 

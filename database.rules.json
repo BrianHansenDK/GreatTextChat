@@ -20,12 +20,13 @@
       ".indexOn": "author/uid",
       "$message_id": {
         ".read": "auth !== null",
-        ".write": "auth !== null"
+        ".write": "auth !== null",
+        ".indexOn": "roomId",
       }
     },
     "status": {
       "$user_id": {
-        ".read": "$user_id === auth.uid",
+        ".read": "auth !== null",
         ".write": "$user_id === auth.uid"
       }
     },

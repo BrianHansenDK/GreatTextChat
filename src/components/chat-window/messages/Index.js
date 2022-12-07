@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { database } from '../../../misc/firebase'
 import { transformToArrayWithId } from '../../../misc/Helpers'
-import MessagesItem from './MessagesItem'
+import MessageItem from './MessageItem'
 
 const Messages = () => {
 
@@ -37,7 +37,7 @@ const Messages = () => {
                 ) : null
             }
             {
-                canShowMessages ? (messages.map(msg => <MessagesItem key={msg.id} message={msg} />)) : null
+                canShowMessages ? (messages.map(msg => <MessageItem key={msg.id} message={msg} />)) : null
             }
         </ul>
 

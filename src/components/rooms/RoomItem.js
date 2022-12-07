@@ -14,7 +14,10 @@ const RoomItem = ({ room }) => {
                     {name}
                 </h3>
                 <TimeAgo
-                    datetime={lastMessage ? new Date(lastMessage.createdAt) : new Date(createdAt)} className='font-normal text-black-45'
+                    datetime={
+                        lastMessage ? new Date(lastMessage.createdAt) : new Date(createdAt)
+                    }
+                    className='font-normal text-black-45'
                 />
 
             </div>

@@ -1,10 +1,11 @@
 import React from 'react'
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
+import ProfileAvatar from '../ProfileAvatar';
 
 
 const RoomItem = ({ room }) => {
 
-    const { createdAt, name } = room
+    const { createdAt, name, lastMessage } = room
 
     return (
         <div>
@@ -13,13 +14,28 @@ const RoomItem = ({ room }) => {
                     {name}
                 </h3>
                 <TimeAgo
-                    datetime={new Date(createdAt)} className='font-normal text-black-45'
+                    datetime={lastMessage ? new Date(lastMessage.createdAt) : new Date(createdAt)} className='font-normal text-black-45'
                 />
 
             </div>
 
             <div className='d-flex text-black-70 align-items-center'>
-                <span>No messages yet...</span>
+
+                {
+                    lastMessage ? (
+                        <>
+                            <div className='d-flex align-items-center'>
+                                <ProfileAvatar src={lastMessage.author.avatar} name={lastMessage.author.name} size='small' />
+                            </div>
+                            <div className='text-disappear ml-2'>
+                                <div className='text-italic'>
+                                    {lastMessage.author.name}
+                                </div>
+                                <span>{lastMessage.text}</span>
+                            </div>
+                        </>
+                    ) : <span> No messages yet...</span>
+                }
             </div>
         </div>
     )

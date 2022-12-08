@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Alert, Button, Divider, Drawer } from 'rsuite'
 import { useProfile } from '../../context/profile.context'
 import { database } from '../../misc/firebase'
@@ -49,7 +50,7 @@ const Dashboard = ({ onSignOut }) => {
                 <AvatarUploadBtn />
             </Drawer.Body>
             <Drawer.Footer>
-                <Button block color='red' onClick={onSignOut}>
+                <Button componentClass={Link} to='/sign-in' block color='red' onClick={onSignOut}>
                     Sign Out
                 </Button>
             </Drawer.Footer>

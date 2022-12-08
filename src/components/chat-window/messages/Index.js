@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Alert } from 'rsuite'
-import { database } from '../../../misc/firebase'
+import { auth, database } from '../../../misc/firebase'
 import { transformToArrayWithId } from '../../../misc/Helpers'
 import MessageItem from './MessageItem'
 
@@ -47,9 +47,33 @@ const Messages = () => {
                 return admins;
             })
             Alert.info(alertMsg, 4000)
-        },
-        [chatId],
-    )
+        }, [chatId])
+
+    const handleLike = useCallback(async (msgId) => {
+        const { uid } = auth.currentUser
+        const messageRef = database.ref(`/messages/${msgId}`)
+        let alertMsg
+
+        await messageRef.transaction(msg => {
+            if (msg) {
+                if (msg.likes && msg.likes[uid]) {
+                    msg.likeCount -= 1
+                    msg.likes[uid] = null;
+                    alertMsg = 'Like removed'
+                } else {
+                    msg.likeCount += 1
+                    if (!msg.likes) {
+                        msg.likes = {}
+                    }
+                    msg.likes[uid] = true;
+                    alertMsg = 'Liked messages'
+                }
+            }
+            return msg;
+        })
+        Alert.info(alertMsg, 4000)
+    }, [])
+
 
 
     return (
@@ -63,7 +87,7 @@ const Messages = () => {
                 ) : null
             }
             {
-                canShowMessages ? (messages.map(msg => <MessageItem key={msg.id} message={msg} handleAdmin={handleAdmin} />)) : null
+                canShowMessages ? (messages.map(msg => <MessageItem key={msg.id} message={msg} handleLike={handleLike} handleAdmin={handleAdmin} />)) : null
             }
         </ul>
 

@@ -15,7 +15,7 @@ const EditRoomBtnDrawer = () => {
     const description = useCurrentRoom(v => v.description)
 
     const updateData = (key, value) => {
-        database.ref(`/rooms/${chatId}`).child(key).set(value)
+        database.ref(`rooms/${chatId}`).child(key).set(value)
             .then(() => {
                 Alert.success('Room information was succesfully updated', 4000)
             })
@@ -25,11 +25,11 @@ const EditRoomBtnDrawer = () => {
     }
 
     const changeName = (newName) => {
-        updateData(name, newName)
+        updateData('name', newName)
     }
 
     const changeDescription = (newDescription) => {
-        updateData(description, newDescription)
+        updateData('description', newDescription)
     }
 
     return (

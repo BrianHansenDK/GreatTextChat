@@ -9,7 +9,7 @@ import ProfileAvatar from '../../ProfileAvatar';
 import IconControlBtn from './IconControlBtn';
 import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 
-const MessageItem = ({ message, handleAdmin, handleLike }) => {
+const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
 
     const { author, createdAt, text, likes, likeCount } = message
     const [hoverRef, isHovered] = useHover()
@@ -55,6 +55,13 @@ const MessageItem = ({ message, handleAdmin, handleLike }) => {
                     tooltip='Like Message'
                     badgeContent={likeCount}
                 />
+                {isAuthor ? (<IconControlBtn
+                    isVisible={canShowIcons}
+                    iconName='close'
+                    onClick={() => { handleDelete(message.id) }}
+                    tooltip='Delete message'
+                />) : null}
+
             </div>
             <div>
                 <span className='word-break-all'> {text} </span>

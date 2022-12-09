@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Alert } from 'rsuite'
 import { auth, database, storage } from '../../../misc/firebase'
-import { transformToArrayWithId } from '../../../misc/Helpers'
+import { groupBy, transformToArrayWithId } from '../../../misc/Helpers'
 import MessageItem from './MessageItem'
 
 const Messages = () => {
@@ -117,6 +117,29 @@ const Messages = () => {
     )
 
 
+    const renderMessages = () => {
+
+        const groups = groupBy(messages, (item) => new Date(item.createdAt).toDateString())
+
+        const items = []
+        Object.keys(groups).forEach((date) => {
+            items.push(
+                <li key={date} className='text-center mb-1 padded'>
+                    {date}
+                </li>
+            )
+            const msgs = groups[date].map(msg => (
+                <MessageItem
+                    key={msg.id} message={msg}
+                    handleLike={handleLike}
+                    handleAdmin={handleAdmin}
+                    handleDelete={handleDelete} />
+            ))
+            items.push(...msgs)
+        })
+        return items
+    }
+
     return (
 
         <ul className='msg-list custom-scroll'>
@@ -128,12 +151,7 @@ const Messages = () => {
                 ) : null
             }
             {
-                canShowMessages ? (messages.map(msg =>
-                    <MessageItem
-                        key={msg.id} message={msg}
-                        handleLike={handleLike}
-                        handleAdmin={handleAdmin}
-                        handleDelete={handleDelete} />)) : null
+                canShowMessages ? (renderMessages()) : null
             }
         </ul>
 

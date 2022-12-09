@@ -21,6 +21,16 @@ const renderFileMessage = file => {
         )
     }
 
+    if (file.contentType.includes('mp3')) {
+        return (
+            // eslint-disable-next-line
+            <audio controls autoPlay={false}>
+                <source src={file.url} type='audio/mp3' />
+                Your browser does not support the audio elements... 😔
+            </audio>
+        )
+    }
+
     return (
         <a href={file.url} >Download attachment: {file.name} </a>
     )
@@ -75,7 +85,7 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
                 {isAuthor ? (<IconControlBtn
                     isVisible={canShowIcons}
                     iconName='close'
-                    onClick={() => { handleDelete(message.id) }}
+                    onClick={() => { handleDelete(message.id, file) }}
                     tooltip='Delete message'
                 />) : null}
 
